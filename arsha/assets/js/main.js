@@ -72,7 +72,7 @@ jQuery(document).ready(function($) {
   /**
    * Toggle .header-scrolled class to #header when page is scrolled
    */
-  let selectHeader = select('#header')
+  let selectHeader = select('#header');
   if (selectHeader) {
     const headerScrolled = () => {
       if (window.scrollY > 100) {
@@ -237,6 +237,16 @@ jQuery(document).ready(function($) {
     }
   });
 
-
+/**
+ * Animation on scroll
+ */
+window.addEventListener('load', () => {
+  AOS.init({
+    duration: 1000,
+    easing: "ease-in-out",
+    once: true,
+    mirror: false
+  });
+});
 
 });

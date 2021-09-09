@@ -40,7 +40,6 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 			add_action( 'after_setup_theme', [$this,'arsha_content_width'],0);
 			add_action( 'widgets_init', [$this,'arsha_widgets_init'] );
 			add_action( 'wp_enqueue_scripts', [$this,'scripts_styles'] );
-			add_action( 'wp_head', [$this,'head_scripts_styles'] );
 	    }
 
 	    /**
@@ -58,25 +57,6 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 			}
 	    }
 
-	    public function head_scripts_styles(){
-	    	?>
-	    	<script type="text/javascript">
-	    		  /**
-				   * Animation on scroll
-				   */
-				  window.addEventListener('load', () => {
-				    AOS.init({
-				      duration: 1000,
-				      easing: "ease-in-out",
-				      once: true,
-				      mirror: false
-				    });
-				  });
-				  
-	    	</script>
-
-	    	<?php
-	    }
 	    /**
 	    * Load Scripts & Styles
 	    * @since 1.0.0
@@ -107,7 +87,7 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 
 
 			wp_enqueue_script( 'arsha-navigation', get_template_directory_uri() . '/js/navigation.js', array(), theme_ver, true );
-			wp_register_script('main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), theme_ver, true);
+			wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), theme_ver, true);
 
 			if (is_singular() && comments_open() && get_option('thread_comments')) {
 			wp_enqueue_script('comment-reply');
