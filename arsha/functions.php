@@ -203,7 +203,8 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 				'inc/custom-header.php',
 				'inc/template-tags.php',
 				'inc/template-functions.php',
-				'inc/customizer.php'
+				'inc/customizer.php',
+				'inc/wp_bootstrap_navwalker.php'
 			);
 			foreach ($theme_paths as $theme_path) {
 				if(locate_template (array($theme_path))){
