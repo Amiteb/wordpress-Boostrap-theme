@@ -216,7 +216,8 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 				'inc/template-functions.php',
 				'inc/customizer.php',
 				'inc/wp_bootstrap_navwalker.php',
-				'inc/arsha-widgets.php'
+				'inc/arsha-widgets.php',
+				'inc/cpt.php'
 			);
 			foreach ($theme_paths as $theme_path) {
 				if(locate_template (array($theme_path))){
