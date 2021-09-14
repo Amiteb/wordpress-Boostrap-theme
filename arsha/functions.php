@@ -122,6 +122,17 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 					'after_title'   => '</h2>',
 				)
 			);
+			register_sidebar(
+				array(
+					'name'          => esc_html__( 'About Us Page Widget Area', 'arsha' ),
+					'id'            => 'aboutus',
+					'description'   => esc_html__( 'Add widgets here to appear in your About Us Page.', 'arsha' ),
+					'before_widget' => '<section id="hero" class="d-flex align-items-center %2$s">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
 		}
 
 	    /**
@@ -217,7 +228,8 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 				'inc/customizer.php',
 				'inc/wp_bootstrap_navwalker.php',
 				'inc/arsha-widgets.php',
-				'inc/cpt.php'
+				'inc/cpt.php',
+				'inc/aboutus-widget.php'
 			);
 			foreach ($theme_paths as $theme_path) {
 				if(locate_template (array($theme_path))){
