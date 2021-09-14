@@ -1,4 +1,4 @@
-<!-- ======= Frequently Asked Questions Section ======= -->
+<!-- ======= Frequently Asked Questions Section =======  -->
     <section id="faq" class="faq section-bg">
       <div class="container" data-aos="fade-up">
 
@@ -9,16 +9,50 @@
 
         <div class="faq-list">
           <ul>
-            <li data-aos="fade-up" data-aos-delay="100">
+            <?php 
+
+        $args = array(  
+        'post_type' => 'service',
+        'post_status' => 'publish',
+        'posts_per_page' => 5,
+        'tax_query' => array(
+          array (
+            'taxonomy' => 'service_category',
+            'field' => 'slug',
+            'terms' => 'faq',
+          )
+        ), 
+      );
+
+      $loop = new WP_Query( $args ); 
+      $i = 100; $count = 1;
+      while ( $loop->have_posts() ) : $loop->the_post(); 
+        $show = $count == 1 ? 'show' : '';
+      ?>
+
+        <li data-aos="fade-up" data-aos-delay="<?php echo $i; ?>">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-<?php echo $count; ?>"><?php the_title(); ?><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-<?php echo $count; ?>" class="collapse <?php echo $show; ?>" data-bs-parent=".faq-list">
+                <?php the_content(); ?>
+              </div>
+            </li>
+
+      <?php 
+      $i+=100; $count++;
+      endwhile;
+      wp_reset_postdata(); 
+
+           ?>
+            <!-- <li data-aos="fade-up" data-aos-delay="100">
               <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
                 <p>
                   Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
                 </p>
               </div>
-            </li>
+            </li> -->
 
-            <li data-aos="fade-up" data-aos-delay="200">
+            <!-- <li data-aos="fade-up" data-aos-delay="200">
               <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
                 <p>
@@ -52,10 +86,10 @@
                   Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
                 </p>
               </div>
-            </li>
+            </li> -->
 
           </ul>
         </div>
 
       </div>
-    </section><!-- End Frequently Asked Questions Section -->
+    </section><!-- End Frequently Asked Questions Section

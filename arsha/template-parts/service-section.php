@@ -19,7 +19,14 @@
         $args = array(  
         'post_type' => 'service',
         'post_status' => 'publish',
-        'posts_per_page' => 4, 
+        'posts_per_page' => 4,
+        'tax_query' => array(
+          array (
+            'taxonomy' => 'service_category',
+            'field' => 'slug',
+            'terms' => 'services',
+          )
+        ), 
       );
 
       $loop = new WP_Query( $args ); 
