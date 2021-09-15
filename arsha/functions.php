@@ -133,8 +133,19 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 					'after_title'   => '</h2>',
 				)
 			);
-		}
+			register_sidebar(
+				array(
+					'name'          => esc_html__( 'Arsha Call To Action Section', 'arsha' ),
+					'id'            => 'cta',
+					'description'   => esc_html__( 'Add widgets here to appear in your cta Section.', 'arsha' ),
+					'before_widget' => '',
+					'after_widget'  => '',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
 
+		}
 	    /**
 	    * Load Text Domain
 	    * @since 1.0.0
@@ -229,7 +240,8 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 				'inc/wp_bootstrap_navwalker.php',
 				'inc/arsha-widgets.php',
 				'inc/cpt.php',
-				'inc/aboutus-widget.php'
+				'inc/aboutus-widget.php',
+				'inc/call-to-action.php'
 			);
 			foreach ($theme_paths as $theme_path) {
 				if(locate_template (array($theme_path))){
