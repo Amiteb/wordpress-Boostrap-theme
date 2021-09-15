@@ -5,27 +5,27 @@
  * @package Arsha
  */
 
-if ( ! function_exists( 'arsha_service_widgets' ) ) :
+if ( ! function_exists( 'arsha_team_widgets' ) ) :
 
 	/**
 	 * Register widgets.
 	 *
 	 * @since 1.0.0
 	 */
-	function arsha_service_widgets() {
+	function arsha_team_widgets() {
 
 		// About Us widget.
-		register_widget( 'arsha_service_section_widgets' );
+		register_widget( 'arsha_team_section_widgets' );
 
 	}
 
 endif;
 
-add_action( 'widgets_init', 'arsha_service_widgets' );
+add_action( 'widgets_init', 'arsha_team_widgets' );
 
-if ( ! class_exists( 'arsha_service_section_widgets' ) ) :
+if ( ! class_exists( 'arsha_team_section_widgets' ) ) :
 
-	class arsha_service_section_widgets extends WP_Widget
+	class arsha_team_section_widgets extends WP_Widget
 	{
 		
 		/**
@@ -35,11 +35,11 @@ if ( ! class_exists( 'arsha_service_section_widgets' ) ) :
 		 */
 		function __construct() {
 			$opts = array(
-				'classname'                   => 'arsha-service-section',
-				'description'                 => esc_html__( 'Arsha Service Section Widget', 'arsha' ),
+				'classname'                   => 'arsha-team-section',
+				'description'                 => esc_html__( 'Arsha Team Section Widget', 'arsha' ),
 				'customize_selective_refresh' => true,
 				);
-			parent::__construct( 'arsha-service-section', esc_html__( 'Arsha Service Section Widget', 'arsha' ), $opts );
+			parent::__construct( 'arsha-team-section', esc_html__( 'Arsha Team Section Widget', 'arsha' ), $opts );
 		}
 
 		/**
@@ -53,42 +53,70 @@ if ( ! class_exists( 'arsha_service_section_widgets' ) ) :
 		 */
 		function widget( $args, $instance ) {
 
-			$service_title = apply_filters( 'widget_title', empty( $instance['service_title'] ) ? '' : $instance['service_title'], $instance, $this->id_base );
+			$team_title = apply_filters( 'widget_title', empty( $instance['team_title'] ) ? '' : $instance['team_title'], $instance, $this->id_base );
 
-			$service_des = apply_filters( 'widget_title', empty( $instance['service_des'] ) ? '' : $instance['service_des'], $instance, $this->id_base );
+			$team_des = apply_filters( 'widget_title', empty( $instance['team_des'] ) ? '' : $instance['team_des'], $instance, $this->id_base );
 
-			$cat_id = ! empty( $instance['service_select_page'] ) ? $instance['service_select_page'] : 0; ?>
+			$cat_id = ! empty( $instance['team_select_page'] ) ? $instance['team_select_page'] : 0; ?>
 
-			<section id="services" class="services section-bg">
+			<section id="team" class="team section-bg">
       			<div class="container" data-aos="fade-up">
       				<div class="section-title">
-			          <h2><?php echo $service_title; ?></h2>
-			          <p><?php echo $service_des; ?></p>
+			          <h2><?php echo $team_title; ?></h2>
+			          <p><?php echo $team_des; ?></p>
 			        </div>
        			<div class="row">
           <?php  
+          // var_dump($cat_id);
           if($cat_id > 0):
 
 				$datap = array(
-					'posts_per_page'   => 4,
-				    'category'         => $cat_id ,
-				    'post_type'        => 'service'
+					'posts_per_page'	=> 4,
+				    'post_type'			=> 'team',
+				    'tax_query' => array(
+			        array(
+			            'taxonomy' => 'team_category',
+			            'field' => 'ID', //can be set to ID
+			            'terms' => $cat_id //if field is ID you can reference by cat/term number
+			        	),
+			    	),
 				);
 				$loop = new WP_Query( $datap ); 
         		$i = 100; 
-        		while ( $loop->have_posts() ) : $loop->the_post();  ?>
+        		global $post;
+        		while ( $loop->have_posts() ) : $loop->the_post();  
 
-	        	<div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="<?php echo $i; ?>">
-	            <div class="icon-box">
-	              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-	              <h4><a href="#"><?php the_title(); ?></a></h4>
-	              <?php the_content(); ?>
-	            </div>
-	          </div>
-		      <?php 
-		      $i+= 100; 
-		  	endwhile;
-        	wp_reset_postdata();
+	        	  $page_meta   = unserialize(get_post_meta($post->ID, 'team_page_options', true));
+		          $position    =isset($page_meta['position']) ? $page_meta['position'] :'';
+		          $facebook    =isset($page_meta['facebook']) ? $page_meta['facebook'] :'#';
+		          $instagram   =isset($page_meta['instagram']) ? $page_meta['instagram'] :'#';
+		          $twitter     =isset($page_meta['twitter']) ? $page_meta['twitter'] :'#';
+		          $linkedin    =isset($page_meta['linkedin']) ? $page_meta['linkedin'] :'#';
+		        ?>
+
+		          <div class="col-lg-6 mt-4">
+		            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="<?php echo $i; ?>">
+		              <div class="pic"><?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?></div>
+		              <div class="member-info">
+		                <h4><?php the_title(); ?></h4>
+		                <span><?php echo esc_html($position); ?></span>
+		                <p><?php the_content(); ?></p>
+		                <div class="social">
+
+		                  <a href="<?php echo esc_url($twitter); ?>"><i class="ri-twitter-fill"></i></a>
+
+		                  <a href="<?php echo esc_url($facebook); ?>"><i class="ri-facebook-fill"></i></a>
+		                  <a href="<?php echo esc_url($instagram); ?>"><i class="ri-instagram-fill"></i></a>
+		                  <a href="<?php echo esc_url($linkedin); ?>"> <i class="ri-linkedin-box-fill"></i> </a>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+
+		        <?php 
+		        $i+= 100;
+		        endwhile;
+		        wp_reset_postdata();
 	  	  endif;
 	      ?>
 	          </div>
@@ -110,9 +138,9 @@ if ( ! class_exists( 'arsha_service_section_widgets' ) ) :
 		function update( $new_instance, $old_instance ) {
 			$instance = $old_instance;
 
-			$instance['service_title'] = sanitize_text_field( $new_instance['service_title'] );
-			$instance['service_des'] = sanitize_text_field( $new_instance['service_des'] );
-			$instance['service_select_page'] = absint( $new_instance['service_select_page'] );
+			$instance['team_title'] = sanitize_text_field( $new_instance['team_title'] );
+			$instance['team_des'] = sanitize_text_field( $new_instance['team_des'] );
+			$instance['team_select_page'] = absint( $new_instance['team_select_page'] );
 
 			return $instance;
 		}
@@ -128,30 +156,30 @@ if ( ! class_exists( 'arsha_service_section_widgets' ) ) :
 
 			// Defaults.
 			$instance = wp_parse_args( (array) $instance, array(
-				'service_title' => '',
-				'service_des' =>'',
-				'service_select_page' =>'',
+				'team_title' => '',
+				'team_des' =>'',
+				'team_select_page' =>'',
 				) );
 			?>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'service_title' ) ); ?>"><?php esc_html_e( 'Title', 'arsha' ); ?></label>
-				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'service_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'service_title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['service_title'] ); ?>" />
+				<label for="<?php echo esc_attr( $this->get_field_id( 'team_title' ) ); ?>"><?php esc_html_e( 'Title', 'arsha' ); ?></label>
+				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'team_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'team_title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['team_title'] ); ?>" />
 			</p>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'service_des' ) ); ?>"><?php esc_html_e( 'Description', 'arsha' ); ?></label><br>
-				<textarea class="widefat" rows="5" cols="40" id="<?php echo esc_attr( $this->get_field_id( 'service_des' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'service_des' ) ); ?>">
-        		<?php echo $instance['service_des']; ?></textarea>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'team_des' ) ); ?>"><?php esc_html_e( 'Description', 'arsha' ); ?></label><br>
+				<textarea class="widefat" rows="5" cols="40" id="<?php echo esc_attr( $this->get_field_id( 'team_des' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'team_des' ) ); ?>">
+        		<?php echo $instance['team_des']; ?></textarea>
 			</p>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'service_select_page' ) ); ?>"><?php esc_html_e( 'Select Category:', 'arsha' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'team_select_page' ) ); ?>"><?php esc_html_e( 'Select Category:', 'arsha' ); ?></label>
 				<?php
 				$cat_args = array(
 					'orderby'         => 'name',
 					'hide_empty'      => false,
-					'taxonomy'        => 'service_category',
-					'name'            => $this->get_field_name( 'service_select_page' ),
-					'id'              => $this->get_field_id( 'service_select_page' ),
-					'selected'        => $instance['service_select_page'],
+					'taxonomy'        => 'team_category',
+					'name'            => $this->get_field_name( 'team_select_page' ),
+					'id'              => $this->get_field_id( 'team_select_page' ),
+					'selected'        => $instance['team_select_page'],
 					'show_option_all' => esc_html__( 'All Categories','arsha' ),
 				);
 				wp_dropdown_categories( $cat_args );

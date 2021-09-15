@@ -67,12 +67,19 @@ if ( ! class_exists( 'arsha_service_section_widgets' ) ) :
 			        </div>
        			<div class="row">
           <?php  
+          // var_dump($cat_id);
           if($cat_id > 0):
 
 				$datap = array(
-					'posts_per_page'   => 4,
-				    'category'         => $cat_id ,
-				    'post_type'        => 'service'
+					'posts_per_page'	=> 4,
+				    'post_type'			=> 'service',
+				    'tax_query' => array(
+			        array(
+			            'taxonomy' => 'service_category',
+			            'field' => 'ID', //can be set to ID
+			            'terms' => $cat_id //if field is ID you can reference by cat/term number
+			        	),
+			    	),
 				);
 				$loop = new WP_Query( $datap ); 
         		$i = 100; 

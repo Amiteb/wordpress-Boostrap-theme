@@ -144,6 +144,28 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 					'after_title'   => '</h2>',
 				)
 			);
+			register_sidebar(
+				array(
+					'name'          => esc_html__( 'Arsha Team Section', 'arsha' ),
+					'id'            => 'team-section',
+					'description'   => esc_html__( 'Add widgets here to appear in your Team Section.', 'arsha' ),
+					'before_widget' => '',
+					'after_widget'  => '',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
+			register_sidebar(
+				array(
+					'name'          => esc_html__( 'Arsha FAQ Section', 'arsha' ),
+					'id'            => 'faq-section',
+					'description'   => esc_html__( 'Add widgets here to appear in your FAQ Section.', 'arsha' ),
+					'before_widget' => '',
+					'after_widget'  => '',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
 
 		}
 	    /**
@@ -241,7 +263,9 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 				'inc/cpt.php',
 				'inc/hero-section-widget.php',
 				'inc/call-to-action.php',
-				'inc/service-widget.php'
+				'inc/service-widget.php',
+				'inc/team-widget.php',
+				'inc/faq-widget.php'
 			);
 			foreach ($theme_paths as $theme_path) {
 				if(locate_template (array($theme_path))){
@@ -258,17 +282,3 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 	}
 }
 arsha_Theme_Setup::instance();
-
-
-// add_filter('pre_get_posts', 'query_post_type');
-// function query_post_type($query) {
-//   if( is_category() ) {
-//     $post_type = get_query_var('service');
-//     if($post_type)
-//         $post_type = $post_type;
-//     else
-//         $post_type = array('nav_menu_item', 'post', 'movies'); // don't forget nav_menu_item to allow menus to work!
-//     $query->set('post_type',$post_type);
-//     return $query;
-//     }
-// }
