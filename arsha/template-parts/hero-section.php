@@ -1,7 +1,7 @@
 
 <?php 
-    if ( is_active_sidebar( 'aboutus' ) ) { 
+    if ( is_active_sidebar( 'hero-section' ) ) { 
 
-      dynamic_sidebar( 'aboutus' ); 
+      dynamic_sidebar( 'hero-section' ); 
     }
 ?>

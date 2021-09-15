@@ -5,27 +5,27 @@
  * @package Arsha
  */
 
-if ( ! function_exists( 'arsha_aboutus_widgets' ) ) :
+if ( ! function_exists( 'arsha_hero_section_widgets' ) ) :
 
 	/**
 	 * Register widgets.
 	 *
 	 * @since 1.0.0
 	 */
-	function arsha_aboutus_widgets() {
+	function arsha_hero_section_widgets() {
 
 		// About Us widget.
-		register_widget( 'Aarsha_aboutus_Widget' );
+		register_widget( 'Aarsha_hero_section_Widget' );
 
 	}
 
 endif;
 
-add_action( 'widgets_init', 'arsha_aboutus_widgets' );
+add_action( 'widgets_init', 'arsha_hero_section_widgets' );
 
-if ( ! class_exists( 'Aarsha_aboutus_Widget' ) ) :
+if ( ! class_exists( 'Aarsha_hero_section_Widget' ) ) :
 
-	class Aarsha_aboutus_Widget extends WP_Widget
+	class Aarsha_hero_section_Widget extends WP_Widget
 	{
 		
 		/**
@@ -35,11 +35,11 @@ if ( ! class_exists( 'Aarsha_aboutus_Widget' ) ) :
 		 */
 		function __construct() {
 			$opts = array(
-				'classname'                   => 'arsha-aboutus',
-				'description'                 => esc_html__( 'Arsha About Us Widget', 'arsha' ),
+				'classname'                   => 'arsha-hero-section',
+				'description'                 => esc_html__( 'Arsha Hero Section Widget', 'arsha' ),
 				'customize_selective_refresh' => true,
 				);
-			parent::__construct( 'arsha-aboutus', esc_html__( 'Arsha About Us', 'arsha' ), $opts );
+			parent::__construct( 'arsha-hero-section', esc_html__( 'Arsha Hero Section', 'arsha' ), $opts );
 		}
 
 		/**
@@ -60,8 +60,8 @@ if ( ! class_exists( 'Aarsha_aboutus_Widget' ) ) :
 			$video_txt = apply_filters( 'widget_title', empty( $instance['video_txt'] ) ? '' : $instance['video_txt'], $instance, $this->id_base );
 
 			$video_url = apply_filters( 'widget_title', empty( $instance['video_url'] ) ? '' : $instance['video_url'], $instance, $this->id_base );
-			$aboutus_page = ! empty( $instance['aboutus_page'] ) ? $instance['aboutus_page'] : 0;
-			$content_post = get_post($aboutus_page);
+			$hero_section_page = ! empty( $instance['hero_section_page'] ) ? $instance['hero_section_page'] : 0;
+			$content_post = get_post($hero_section_page);
 			// var_dump($content_post);
 			echo $args['before_widget'];
 
@@ -81,8 +81,8 @@ if ( ! class_exists( 'Aarsha_aboutus_Widget' ) ) :
 		            <a href="<?php echo $video_url; ?>" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span><?php echo $video_txt; ?></span></a>
 		          </div>
 		        </div>
-		        <?php if (has_post_thumbnail( $aboutus_page ) ): ?>
-		        <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $aboutus_page ), 'full' ); ?>
+		        <?php if (has_post_thumbnail( $hero_section_page ) ): ?>
+		        <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $hero_section_page ), 'full' ); ?>
 		        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
 		          <img src="<?php echo $image[0]; ?>" class="img-fluid animated" alt="">
 		        </div>
@@ -110,7 +110,7 @@ if ( ! class_exists( 'Aarsha_aboutus_Widget' ) ) :
 			$instance['btn_url'] = esc_url( $new_instance['btn_url'] );
 			$instance['video_txt'] = sanitize_text_field( $new_instance['video_txt'] );
 			$instance['video_url'] = esc_url( $new_instance['video_url'] );
-			$instance['aboutus_page']            = absint( $new_instance['aboutus_page'] );
+			$instance['hero_section_page']            = absint( $new_instance['hero_section_page'] );
 
 			return $instance;
 		}
@@ -130,7 +130,7 @@ if ( ! class_exists( 'Aarsha_aboutus_Widget' ) ) :
 				'btn_url' =>'',
 				'video_txt' =>'',
 				'video_url' =>'',
-				'aboutus_page' =>'',
+				'hero_section_page' =>'',
 				) );
 			?>
 			<p>
@@ -150,12 +150,12 @@ if ( ! class_exists( 'Aarsha_aboutus_Widget' ) ) :
 				<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'video_url' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'video_url' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['video_url'] ); ?>" />
 			</p>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'aboutus_page' ) ); ?>"><?php esc_html_e( 'Select Page:', 'arsha' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'hero_section_page' ) ); ?>"><?php esc_html_e( 'Select Page:', 'arsha' ); ?></label>
 				<?php
 				wp_dropdown_pages( array(
-					'id'               => $this->get_field_id( 'aboutus_page' ),
-					'name'             => $this->get_field_name( 'aboutus_page' ),
-					'selected'         => $instance['aboutus_page'],
+					'id'               => $this->get_field_id( 'hero_section_page' ),
+					'name'             => $this->get_field_name( 'hero_section_page' ),
+					'selected'         => $instance['hero_section_page'],
 					'show_option_none' => esc_html__( '&mdash; Select &mdash;', 'arsha' ),
 					)
 				);

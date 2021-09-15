@@ -70,7 +70,7 @@ if ( ! class_exists( 'arsha_call_to_action_widgets' ) ) :
 
 		    <!-- ======= Cta Section ======= -->
 		     <?php 
-
+		     $image[0] = '';
 		     if (has_post_thumbnail( $call_to_action ) ): 
 		        $image = wp_get_attachment_image_src( get_post_thumbnail_id( $call_to_action ), 'full' ); 
 		    endif;

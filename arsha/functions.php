@@ -113,10 +113,10 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 			);
 			register_sidebar(
 				array(
-					'name'          => esc_html__( 'Front Page Widget Area', 'arsha' ),
-					'id'            => 'front-page',
-					'description'   => esc_html__( 'Add widgets here to appear in your Front Page.', 'arsha' ),
-					'before_widget' => '<section id="%1$s" class=" front-page widget %2$s">',
+					'name'          => esc_html__( 'Service Section Widget Area', 'arsha' ),
+					'id'            => 'service-section',
+					'description'   => esc_html__( 'Add widgets here to appear in your Service.', 'arsha' ),
+					'before_widget' => '<section id="%1$s" class=" services-section widget %2$s">',
 					'after_widget'  => '</section>',
 					'before_title'  => '<h2 class="widget-title">',
 					'after_title'   => '</h2>',
@@ -124,9 +124,9 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 			);
 			register_sidebar(
 				array(
-					'name'          => esc_html__( 'About Us Page Widget Area', 'arsha' ),
-					'id'            => 'aboutus',
-					'description'   => esc_html__( 'Add widgets here to appear in your About Us Page.', 'arsha' ),
+					'name'          => esc_html__( 'Hero Section Widget Area', 'arsha' ),
+					'id'            => 'hero-section',
+					'description'   => esc_html__( 'Add widgets here to appear in your Hero Section.', 'arsha' ),
 					'before_widget' => '<section id="hero" class="d-flex align-items-center %2$s">',
 					'after_widget'  => '</section>',
 					'before_title'  => '<h2 class="widget-title">',
@@ -238,10 +238,10 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 				'inc/template-functions.php',
 				'inc/customizer.php',
 				'inc/wp_bootstrap_navwalker.php',
-				'inc/arsha-widgets.php',
 				'inc/cpt.php',
-				'inc/aboutus-widget.php',
-				'inc/call-to-action.php'
+				'inc/hero-section-widget.php',
+				'inc/call-to-action.php',
+				'inc/service-widget.php'
 			);
 			foreach ($theme_paths as $theme_path) {
 				if(locate_template (array($theme_path))){
@@ -258,3 +258,17 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 	}
 }
 arsha_Theme_Setup::instance();
+
+
+// add_filter('pre_get_posts', 'query_post_type');
+// function query_post_type($query) {
+//   if( is_category() ) {
+//     $post_type = get_query_var('service');
+//     if($post_type)
+//         $post_type = $post_type;
+//     else
+//         $post_type = array('nav_menu_item', 'post', 'movies'); // don't forget nav_menu_item to allow menus to work!
+//     $query->set('post_type',$post_type);
+//     return $query;
+//     }
+// }
