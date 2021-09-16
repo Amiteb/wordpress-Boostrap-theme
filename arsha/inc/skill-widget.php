@@ -71,25 +71,6 @@ if ( ! class_exists( 'Aarsha_skill_section_Widget' ) ) :
 			// }
 			?>
 
-		    <div class="container">
-		      <div class="row">
-		        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-		          <h1><?php echo $content_post->post_title; ?></h1>
-		          <h2><?php echo $content_post->post_content; ?></h2>
-		          <div class="d-flex justify-content-center justify-content-lg-start">
-		            <a href="<?php echo $css_number; ?>" class="btn-get-started scrollto"><?php echo $html_number; ?></a>
-		            <a href="<?php echo $photoshop_number; ?>" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span><?php echo $javascript_number; ?></span></a>
-		          </div>
-		        </div>
-		        <?php if (has_post_thumbnail( $skill_section_page ) ): ?>
-		        <?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $skill_section_page ), 'full' ); ?>
-		        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-		          <img src="<?php echo $image[0]; ?>" class="img-fluid animated" alt="">
-		        </div>
-		        <?php endif; ?>
-		      </div>
-		    </div>
-
 		    <!-- ======= Skills Section ======= -->
 		    <section id="skills" class="skills">
 		      <div class="container" data-aos="fade-up">
