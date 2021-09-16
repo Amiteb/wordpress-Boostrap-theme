@@ -177,6 +177,17 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 					'after_title'   => '</h2>',
 				)
 			);
+			register_sidebar(
+				array(
+					'name'          => esc_html__( 'Arsha Skill Section', 'arsha' ),
+					'id'            => 'skill-section',
+					'description'   => esc_html__( 'Add widgets here to appear in your Skill Section.', 'arsha' ),
+					'before_widget' => '',
+					'after_widget'  => '',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				)
+			);
 
 		}
 	    /**
@@ -277,7 +288,8 @@ if( ! class_exists( 'arsha_Theme_Setup' ) ){
 				'inc/service-widget.php',
 				'inc/team-widget.php',
 				'inc/faq-widget.php',
-				'inc/whychoose-widget.php'
+				'inc/whychoose-widget.php',
+				'inc/skill-widget.php'
 			);
 			foreach ($theme_paths as $theme_path) {
 				if(locate_template (array($theme_path))){
